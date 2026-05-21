@@ -1,0 +1,2 @@
+# kazam
+THE INTELLIGENT SHELL
