@@ -5,5 +5,5 @@ $LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 
 require 'kazam'
 
-shell = Kazam::Shell.new(output: $stdout)
+shell = Kazam::Shell.new(input: $stdin, output: $stdout)
 shell.start
