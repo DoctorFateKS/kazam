@@ -7,9 +7,8 @@ module Kazam
       def initialize(input:, output:)
         @output = output
         @prompt_renderer = PromptRenderer.new
-        @input_reader = InputReader.new(
-          input: input
-        )
+        @input_reader = InputReader.new(input: input)
+        @dispatcher = Execution::CommandDispatcher.new(output: output)
       end
 
       def start
@@ -18,9 +17,11 @@ module Kazam
 
           command = read_command
 
-          break if command.nil?
+          break unless command
 
-          print_invalid_command(command)
+          result = dispatch(command)
+
+          break if exit_requested?(result)
         end
       end
 
@@ -38,10 +39,12 @@ module Kazam
         @input_reader.read
       end
 
-      def print_invalid_command(command)
-        @output.puts(
-          "#{command}: command not found"
-        )
+      def dispatch(command)
+        @dispatcher.dispatch(command)
+      end
+
+      def exit_requested?(result)
+        result == :exit_shell
       end
     end
   end

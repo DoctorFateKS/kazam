@@ -4,9 +4,9 @@ require 'spec_helper'
 
 RSpec.describe Kazam::Repl::Loop do
   describe '#start' do
-    it 'runs the REPL cycle until EOF' do
+    it 'runs the REPL cycle until exit' do
       input = StringIO.new(
-        "hello\n"
+        "hello\nexit\n"
       )
 
       output = StringIO.new
