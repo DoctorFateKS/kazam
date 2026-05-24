@@ -4,8 +4,8 @@ require 'spec_helper'
 
 RSpec.describe 'shell startup' do
   describe 'when an invalid command is entered' do
-    it 'prints a command not found message' do
-      input = StringIO.new("xyz\n")
+    it 'keep prompting for command' do
+      input = StringIO.new("hello\nworld\n")
       output = StringIO.new
 
       shell = Kazam::Shell.new(
@@ -16,7 +16,9 @@ RSpec.describe 'shell startup' do
       shell.start
 
       expect(output.string).to eq(
-        "ψ xyz: command not found\n"
+        "ψ hello: command not found\n" \
+        "ψ world: command not found\n" \
+        'ψ '
       )
     end
   end
